@@ -20,7 +20,7 @@ Avoid code screen shots from your IDE where ever possible, instead use [code mar
 
 ### Description of erroneous behaviour 
 
-The GET request described in step 5 below fails when there is no data present in the response to the query.
+The GET request described in step 7 below fails when there is no data present in the response to the query.
 
 > The referred query 
 ```
@@ -35,10 +35,12 @@ By removing the $count operator from the OData query the issue is mitigated. How
 ### Detailed steps to reproduce
 
 1. git clone https://github.com/dimitar-nikolov-lazarov/capjs-demos.git
-2. npm install
-3. cds deploy
-4. cds watch
-5. Execute GET request: 
+2. main branch to test with cds 8.X
+3. branch feature/cds-9 to test with cds 9 
+4. npm install
+5. cds deploy
+6. cds watch
+7. Execute GET request: 
 ```
 http://localhost:4004/odata/v4/cloud/VM?$apply=filter((lob/cost_object_code eq 'cheap') and (labels/any(l:(l/label_labelKey eq 'env' and l/label_value eq 'prod'))) and (status eq 'RUNNING' or status eq 'PARKED' or status eq 'Updating' or status eq 'Succeeded') and platform eq 'AWS')/groupby((lob/name,lob/cloud_id))&$top=500&$count=true
 ```
@@ -54,19 +56,19 @@ Error response:
 
 ### Details about your project
 
-| Demo Repo         | https://github.com/dimitar-nikolov-lazarov/capjs-demos.git |  | CDS9 https://github.com/dimitar-nikolov-lazarov/capjs-demos.git 
+| Demo Repo         | https://github.com/dimitar-nikolov-lazarov/capjs-demos.git |  | CDS9 https://github.com/dimitar-nikolov-lazarov/capjs-demos.git/feature/cds-9
 |:-----------------------|----------|--|------------|
-| @cap-js/asyncapi       | 1.0.3    |  |            |
-| @cap-js/cds-types      | 0.6.5    |  |            |
-| @cap-js/db-service     | 1.20.2   |  |            |
-| @cap-js/hana           | 1.9.1    |  |            |
-| @cap-js/openapi        | 1.1.2    |  |            |
-| @cap-js/sqlite         | 1.11.1   |  |            |
-| @sap/cds               | 8.9.4    |  |            |
-| @sap/cds-compiler      | 5.9.4    |  |            |
-| @sap/cds-dk (global)   | 9.0.4    |  |            |
-| @sap/cds-fiori         | 1.4.1    |  |            |
-| @sap/cds-foss          | 5.0.1    |  |            |
-| @sap/cds-mtxs          | 3.0.1    |  |            |
-| Node.js                | v22.12.0 |  |            |
+| @cap-js/asyncapi       | 1.0.3    |  | 1.0.3      |
+| @cap-js/cds-types      | 0.6.5    |  | N/A        |
+| @cap-js/db-service     | 1.20.2   |  | 2.0.1      |
+| @cap-js/hana           | 1.9.1    |  | 2.0.1      |
+| @cap-js/openapi        | 1.1.2    |  | 1.2.3      |
+| @cap-js/sqlite         | 1.11.1   |  | 2.0.1      |
+| @sap/cds               | 8.9.4    |  | 9.0.2      |
+| @sap/cds-compiler      | 5.9.4    |  | 6.0.10     |
+| @sap/cds-dk (global)   | 9.0.4    |  | 9.0.4      |
+| @sap/cds-fiori         | 1.4.1    |  | 2.0.1      |
+| @sap/cds-foss          | 5.0.1    |  | N/A        |
+| @sap/cds-mtxs          | 3.0.1    |  | 3.0.1      |
+| Node.js                | v22.12.0 |  | v22.12.0   |
 
