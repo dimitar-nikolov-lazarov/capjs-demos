@@ -1,0 +1,4 @@
+vm_platform,vm_platformId,label_labelKey,label_value
+AWS,aws-platform-1,env,prod
+AWS,aws-platform-1,app,SERVER
+AZURE,azure-platform-1,env,demo

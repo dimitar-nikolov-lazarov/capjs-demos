@@ -1,0 +1,3 @@
+id,name,cloud_id,type,cost_object_code
+77fc9f7d-e8a0-49c8-8168-e81bc1dd2e41,LOB-1,cloud_id_1_val,AWS,cost_val
+01d1da6d-0500-4681-93da-2e595dbd61da,LOB-2,cloud_id_2_val,AZURE,cheap

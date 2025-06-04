@@ -1,0 +1,33 @@
+--{costObjectCode}: cheap
+--{kind}: prod
+--{platform}: AWS
+--{groupByCriteria}: lob/name,lob/cloud_id
+VM?$apply=filter((lob/cost_object_code eq '${lob.costObjectCode}') and (labels/any(l:(l/label_labelKey eq 'env' and l/label_value eq '{env.kind}'))) and (status eq 'RUNNING' or status eq 'PARKED' or status eq 'Updating' or status eq 'Succeeded') and platform eq '${platform}')/groupby((${groupByCriteria}))&$top=500&$count=true
+
+Failed:
+
+GET: http://localhost:4004/odata/v4/cloud/VM?$apply=filter((lob/cost_object_code eq 'cheap') and (labels/any(l:(l/label_labelKey eq 'env' and l/label_value eq 'prod'))) and (status eq 'RUNNING' or status eq 'PARKED' or status eq 'Updating' or status eq 'Succeeded') and platform eq 'AWS')/groupby((lob/name,lob/cloud_id))&$top=500&$count=true
+Response:
+```
+{"error":{"code":"500","message":"near \"FROM\": syntax error in:\nSELECT json_insert('{}','$.\"count\"',count) as _json_ FROM (SELECT count(*) as count FROM (SELECT FROM (SELECT \"$V\".platform,\"$V\".platformId,\"$V\".workspace,\"$V\".name,\"$V\".status,\"$V\".zone,\"$V\".region,\"$V\".hostname FROM CloudService_VM as \"$V\" left JOIN CloudService_LOB as lob2 ON lob2.cloud_id = \"$V\".workspace WHERE (lob2.cost_object_code = ?) and (exists (SELECT 1 as \"1\" FROM CloudService_VMLabels as \"$l\" WHERE \"$l\".vm_platformId = \"$V\".platformId and \"$l\".vm_platform = \"$V\".platform and (\"$l\".label_labelKey = ? and \"$l\".label_value = ?))) and (\"$V\".status = ? or \"$V\".status = ? or \"$V\".status = ? or \"$V\".status = ?) and \"$V\".platform = ? ORDER BY \"$V\".platform COLLATE NOCASE ASC,\"$V\".platformId COLLATE NOCASE ASC) as __select__2 left JOIN CloudService_LOB as lob ON lob.cloud_id = __select__2.workspace GROUP BY lob.name,lob.cloud_id) as __select__ LIMIT ?)"}}
+```
+
+If we remove $count -> work:
+GET: http://localhost:4004/odata/v4/cloud/VM?$apply=filter((lob/cost_object_code%20eq%20%27cheap%27)%20and%20(labels/any(l:(l/label_labelKey%20eq%20%27env%27%20and%20l/label_value%20eq%20%27prod%27)))%20and%20(status%20eq%20%27RUNNING%27%20or%20status%20eq%20%27PARKED%27%20or%20status%20eq%20%27Updating%27%20or%20status%20eq%20%27Succeeded%27)%20and%20platform%20eq%20%27AWS%27)/groupby((lob/name,lob/cloud_id))&$top=500&$count=false
+Response:
+```
+{"@odata.context":"$metadata#VM","value":[]}
+```
+
+Run query that have records:
+cheap, demo, AZURE
+--{costObjectCode}: cheap
+--{kind}: demo
+--{platform}: AZURE
+--{groupByCriteria}: lob/name,lob/cloud_id
+
+GET: http://localhost:4004/odata/v4/cloud/VM?$apply=filter((lob/cost_object_code eq 'cheap') and (labels/any(l:(l/label_labelKey eq 'env' and l/label_value eq 'demo'))) and (status eq 'RUNNING' or status eq 'PARKED' or status eq 'Updating' or status eq 'Succeeded') and platform eq 'AZURE')/groupby((lob/name,lob/cloud_id))&$top=500&$count=true
+Response:
+```
+{"@odata.context":"$metadata#VM","@odata.count":1,"value":[{"lob":{"name":"LOB-2","cloud_id":"cloud_id_2_val"}}]}
+```
