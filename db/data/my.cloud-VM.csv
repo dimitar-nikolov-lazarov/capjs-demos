@@ -1,5 +1,5 @@
-platform,platformId,workspace,name,status,zone,region,hostname
-AWS,aws-platform-1,cloud_id_1_val,vm-1,RUNNING,eu-north-1,eu-north-1,app-server-123.com
-AWS,aws-platform-2,cloud_id_1_val,vm-2,RUNNING,eu-north-1,eu-north-1,app-server-223.com
-AZURE,azure-platform-1,cloud_id_2_val,vm-3,RUNNING,eu-north-1,eu-north-1,app-server-323.com
-AZURE,azure-platform-2,cloud_id_2_val,vm-4,RUNNING,eu-north-1,eu-north-1,app-server-423.com
+platform,platformId,workspace,name,status,zone,region,hostname,machineTypeName
+AWS,aws-platform-1,cloud_id_1_val,vm-1,RUNNING,eu-north-1,eu-north-1,app-server-123.com,c5.12xlarge
+AWS,aws-platform-2,cloud_id_1_val,vm-2,RUNNING,eu-north-1,eu-north-1,app-server-223.com,t3.micro
+AZURE,azure-platform-1,cloud_id_2_val,vm-3,RUNNING,eu-north-1,eu-north-1,app-server-323.com,Standard_A2
+AZURE,azure-platform-2,cloud_id_2_val,vm-4,RUNNING,eu-north-1,eu-north-1,app-server-423.com,Standard_D3

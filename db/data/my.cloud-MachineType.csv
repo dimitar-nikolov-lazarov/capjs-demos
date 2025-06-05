@@ -1,0 +1,5 @@
+name,platform,memoryMB,cpuCount
+Standard_A2,AZURE,3584,2
+Standard_D3,AZURE,14336,4
+c5.12xlarge,AWS,98304,48
+t3.micro,AWS,1024,2

@@ -65,6 +65,9 @@ define entity VM {
 
       lob               : Association to LOB
                         on lob.cloud_id = $self.workspace;
+      machineTypeName: String;
+      machineType: Association to MachineType on machineType.name = $self.machineTypeName
+                                    and machineType.platform = $self.platform;
 }
 
 entity LOB {
@@ -75,4 +78,11 @@ entity LOB {
       cloud_id               :      String;
       type                   :      Platform;
       cost_object_code       :      String;
+}
+
+entity  MachineType {
+  key name: String;
+  key platform: Platform;
+  memoryMB: Integer;
+  cpuCount: Integer;
 }
