@@ -26,7 +26,9 @@ type Paths<T, D extends number = 4> = [D] extends [never] ? never :
     T extends PrimitiveTypes ? "" // If T is not an object, return an empty string (no paths).
     : // We are in case where T is object
     {
-        [K in keyof T]-?: K extends string | number ? // If the key K is a string or number, build a string path.
+        [K in keyof T]-?:
+        T[K] extends Function ? never : // Exclude functions. for example toFixed() or split()
+        K extends string | number ? // If the key K is a string or number, build a string path.
         `${K}` | Join<K, Paths<T[K], Prev[D]>> // Concatenate the key K with the recursively generated path for T[K].
         : never // If K is not a string or number, return never.
     }[keyof T]
